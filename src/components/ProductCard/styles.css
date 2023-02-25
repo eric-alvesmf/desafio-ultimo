@@ -1,0 +1,40 @@
+.product-card, .product-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  width: 382px;
+  height: 482px;
+  border-radius: 8px;
+  padding: 24px 0;
+
+  color: #DA0175;
+  background-color: white;
+}
+
+.product-text {
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.product-name {
+  color: black;
+}
+
+.product-value {
+  font-weight: 600 !important;
+  font-size: 32px !important;
+  line-height: 38px !important;
+}
+
+.product-card:hover {
+  transform: scale(1.03);
+  opacity: 0.8;
+}
+
+.product-card h1 {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+}
