@@ -22,20 +22,27 @@ export async function loadProdutos() {
   }
 }
 
-// export async function loadTransactions() {
-//   let token = '';
 
-//   token = getItem('token');
+//-------------------------------------------
 
-//   try {
-//     const response = await api.get('/transacao', {
-//       headers: {
-//         Authorization: `Bearer ${token}`
-//       }
-//     });
+export async function addProdutos(data) {
+  let token = '';
 
-//     return response.data;
-//   } catch (error) {
-//     console.log(error.response);
-//   }
-// }
+  token = getItem('token');
+
+  try {
+    const response = await api.post('/produtos',
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'content-type': data.type,
+        }
+      });
+
+    return response.data;
+
+  } catch (error) {
+    console.log(error.response);
+  }
+}

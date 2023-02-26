@@ -4,6 +4,8 @@ import Logo from '../../assets/novalogo.svg';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../../services/api';
+import { addProdutos } from '../../utils/requisitions';
+import React from 'react';
 
 // titulo
 // categoria
@@ -13,15 +15,20 @@ import api from '../../services/api';
 // foto
 
 const defaultForm = {
+  id: '',
+  usuario_id: '',
   nome: '',
-  nome_loja: '',
-  email: '',
-  senha: '',
-  confirmar_senha: ''
+  estoque: '',
+  preco: '',
+  categoria: '',
+  descricao: '',
+  urlImagem: ''
 }
 
 function AddProduct() {
   const navigate = useNavigate();
+  const [selectedFile, setSelectedFile] = useState("");
+  let data = {};
 
   const [form, setForm] = useState({ ...defaultForm });
 
@@ -30,67 +37,81 @@ function AddProduct() {
 
     try {
 
-      if (!form.nome || !form.nome_loja || !form.email || !form.senha || !form.confirmar_senha) {
-        window.alert('Preencha todos os campos!');
-        return;
+      // if (!form.nome || !form.categoria || !form.descricao || !form.preco || !form.estoque || !form.imagem) {
+      //   window.alert('Preencha todos os campos!');
+      //   return;
+      // }
+
+      data =
+      {
+        nome: form.nome,
+        estoque: form.estoque,
+        preco: form.preco,
+        categoria: form.categoria,
+        descricao: form.descricao,
+        imagem: selectedFile,
       }
 
-      if (form.senha !== form.confirmar_senha) {
-        window.alert('Senhas diferentes');
-        return;
-      }
+      addProdutos(data).then(response => {
+        console.log(response)
+      })
 
-      const response = await api.post('/usuarios',
-        {
-          nome: form.nome,
-          nome_loja: form.nome_loja,
-          email: form.email,
-          senha: form.senha
-        }
-      )
-
-      if (response.status > 204) {
-        window.alert(response.status);
-        return;
-      }
-
-      navigate('/');
+      navigate('/maincards');
 
     } catch (error) {
       window.alert(error.response.data.mensagem);
     }
+
+    console.log(form.preco)
   }
 
   function handleChangeForm({ target }) {
     setForm({ ...form, [target.name]: target.value });
   }
 
+
+
+
+
+
+  //------------------------------------------------------------------
+
+
+
+
+
+
+
   return (
-    <div className='container'>
-      <form className='form-login' onSubmit={handleSubmit}>
-        <img src={Logo} alt="logo" />
+    <div className='container-add-product'>
+      <form className='form-login-add' onSubmit={handleSubmit}>
+        <h3>Adicionar novo produto</h3>
 
         <div className='form-body'>
-
-          <h3>Adicione o produto 3</h3>
 
           <div className="container-form">
             <label htmlFor="nome">Título</label>
             <input
               type="text"
               name='nome'
+              placeholder='Nome do produto'
               value={form.nome}
               onChange={handleChangeForm} />
           </div>
 
           <div className="container-form">
-            <label htmlFor="loja">Categoria</label>
-            <input
+            <label htmlFor="loja">categoria</label>
+            <select
               type="text"
-              name='nome_loja'
-              value={form.nome_loja}
+              name='categoria'
+              value={form.categoria}
               onChange={handleChangeForm}
-              id="loja" />
+              id="categoria">
+              <option disabled={true} value="">Selecionar</option>
+              <option value="Eletrônicos">Eletrônicos</option>
+              <option value="Objetos">Objetos</option>
+              <option value="Roupas">Roupas</option>
+            </select>
           </div>
 
           <div className="container-form">
@@ -101,59 +122,88 @@ function AddProduct() {
             <input
               type="text"
               name='descricao'
-              value={form.email}
+              value={form.descricao}
               onChange={handleChangeForm}
               id="descricao"
             />
           </div>
 
+
           <div className="container-form">
             <label
-              htmlFor="senha"> Senha
+              htmlFor="estoque"> Estoque
             </label>
 
             <input
-              type="password"
-              name='senha'
-              value={form.senha}
+              type="text"
+              name='estoque'
+              value={form.estoque}
               onChange={handleChangeForm}
-              id="senha"
+              id="estoque"
             />
           </div>
 
           <div className="container-form">
             <label
-              htmlFor="check">Confirme sua senha
+              htmlFor=""> Preco
             </label>
 
             <input
-              type="password"
-              name='confirmar_senha'
-              value={form.confirmar_senha}
+              type="text"
+              name='preco'
+              value={form.preco}
               onChange={handleChangeForm}
-              id="check"
+              id="preco"
             />
           </div>
 
-          <div className='disclaimer'>
-            <span>Ao criar uma conta, você concorda com a nossa<br></br>
-              <span className='privacy'> Política de Privacidade</span> e <span className='terms'>Termos de serviço</span>
-            </span>
+          {/* <div className="container-form">
+            <label
+              htmlFor="price"> Preço
+            </label>
 
+            <input
+              type="text"
+              name='price'
+              value={form.preco}
+              onChange={handleChangeForm}
+              id="price"
+
+            />
+          </div> */}
+
+
+          <div className="container-form">
+            <label
+              htmlFor="addphoto">Adicionar foto
+            </label>
+
+            <input
+              type="file"
+              name='addphoto'
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+              id="addphoto"
+              accept="image/*"
+            />
           </div>
 
+
         </div>
 
-        <button className='button'>
-          Criar conta
-        </button>
+        <div className="buttons">
+          <button className='button-publicar'>
+            Publicar anuncio
+          </button>
 
-        <div className="link-login">
-          <span>Já tem conta?
-            <span className='link-interno'
-              onClick={() => navigate('/')}> Fazer login</span>
-          </span>
+          <button
+            className='button'
+            onClick={() => navigate('/maincards')}>
+            Cancelar
+          </button>
         </div>
+
+
+
       </form>
     </div>
   )

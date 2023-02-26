@@ -1,18 +1,20 @@
-.form-login-add {
-  height: 769px;
-  width: 1632px;
+.form-login {
+  width: 446px;
+  height: 767px;
+
   background-color: #FCFCFC;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+
   padding: 32px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
   border-radius: 6px;
-  color: #000;
 }
 
 
-.form-login-add button {
+.form-login button {
   width: 300px;
   height: 48px;
   background-color: #DA0175;
@@ -22,6 +24,8 @@
   cursor: pointer;
   width: 112px;
   height: 56px;
+
+
   background: #B7005C;
   border-radius: 30px;
 }
@@ -47,9 +51,15 @@
   font-size: 12px;
   color: black;
   align-items: center;
+ 
   margin-bottom: 8px;
-  border: 1.5px solid #858585;
-  border-radius: 6px;
+
+
+  ;
+
+
+border: 1.5px solid #858585;
+border-radius: 6px;
 }
 
 .form-body input{
@@ -59,10 +69,27 @@
   border: none;
   font-size: 12px;
   color: black;
+ 
   margin-bottom: 8px;
-  border: 1.5px solid #858585;
-  border-radius: 6px;
+
+border: 1.5px solid #858585;
+border-radius: 6px;
 }
+
+.form-body input{
+  width:382px;
+  height: 44px;
+  background-color: #F8F8F8;
+  border: none;
+  font-size: 12px;
+  color: black;
+ 
+  margin-bottom: 8px;
+
+border: 1.5px solid #858585;
+border-radius: 6px;
+}
+
 
 input::placeholder {
   color:#858585;
@@ -127,12 +154,4 @@ input::placeholder {
 .form-medium{
   width:175px;
   height: 44px;
-}
-
-.form-add-product{
-
-}
-
-.button-publicar{
-  margin-bottom: 50px;
 }
